@@ -1,69 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Whos That Pokemon</title>
-  </head>
 
-  <body>
-    <div class="input">
-      <div class="container">
-        <input class="pokemonSearch" type="text" placeholder="Search..." />
-        <div class="search" id="search"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css" />
+  <title>Whos That Pokemon</title>
+</head>
+
+
+
+<body>
+
+  <div class="input">
+    <div class="container">
+      <input class="pokemonSearch" type="text" placeholder="Search..." />
+      <div class="loginbar">
+        <div class="pokeball">
+          <div class="upper-half"> </div>
+          <div class="lower-half"> </div>
+          <div class="base"> </div>
+          <div class="inner-circle"> </div>
+          <div class="indicator visible"> </div>
+          <div class="indicator-inner"> </div>
+        </div>
+        <a herf="/log-in" class="login">Log-in</a>
       </div>
-      <div class="pokemonResults"></div>
-    </div>
-    <div class="card__container">
-      <div class="card">
-        <div class="img">
-          <img src="" alt="pokemon_img" class="pokemonImg" />
-        </div>
-        <div class="info">
-          <h1 class="name"></h1>
-          <p class="types">
-            <span class="type1"></span><span class="type2"></span>
-          </p>
-          <table class="card__stats">
-            <tbody>
-              <tr>
-                <th>HP:</th>
-                <td></td>
-              </tr>
-              <tr>
-                <th>Attack:</th>
-                <td></td>
-              </tr>
-
-              <tr>
-                <th>Defense:</th>
-                <td></td>
-              </tr>
-
-              <tr>
-                <th>Special Attack:</th>
-                <td></td>
-              </tr>
-              <tr>
-                <th>Special Defense:</th>
-                <td></td>
-              </tr>
-              <tr>
-                <th>Speed:</th>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-          <h3 class="abilities"></h3>
-          <div class="widthHeight">
-            <h3 class="height"></h3>
-            <h3 class="weight"></h3>
-          </div>
-        </div>
+      <div class="search" id="search">
       </div>
     </div>
-    <script src="script.js"></script>
-  </body>
+    <div class="pokemonResults"></div>
+  </div>
+  <div class="card__container">
+    <div class="card">
+      <div class="img">
+        <img src="" alt="pokemon_img" class="pokemonImg" />
+      </div>
+      <div class="info">
+        <h1 class="name"></h1>
+        <span class="heart fa fa-heart-o" id="heart"></span>
+        <p class="types">
+          <span class="type1"></span><span class="type2"></span>
+        </p>
+        <table class="card__stats">
+          <tbody>
+            <tr>
+              <th>HP:</th>
+              <td></td>
+            </tr>
+            <tr>
+              <th>Attack:</th>
+              <td></td>
+            </tr>
+
+            <tr>
+              <th>Defense:</th>
+              <td></td>
+            </tr>
+
+            <tr>
+              <th>Special Attack:</th>
+              <td></td>
+            </tr>
+            <tr>
+              <th>Special Defense:</th>
+              <td></td>
+            </tr>
+            <tr>
+              <th>Speed:</th>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <h3 class="abilities"></h3>
+        <div class="widthHeight">
+          <h3 class="height"></h3>
+          <h3 class="weight"></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>

@@ -1,8 +1,11 @@
+//favorite
+const heart = document.getElementById("heart")
 //pokemon search div
 const input = document.querySelector(".pokemonSearch");
 const results = document.querySelector(".pokemonResults");
 const resultsDiv = document.querySelector(".pokemonResults");
 //search bar animations
+const loginbar = document.querySelector(".loginbar")
 const pokemonInput = document.querySelector(".pokemonSearch");
 const animationButton = document.querySelector("#search");
 //pokemon info div
@@ -73,6 +76,7 @@ input.addEventListener("keyup", (event) => {
 pokemonInput.addEventListener("click", () => {
   pokemonInput.classList.add("testClass");
   resultsDiv.classList.remove("hideResults");
+  loginbar.style.display = "flex"
   card.style.display = "none";
   pokeType1.innerHTML = " ";
   pokeType2.innerHTML = " ";
@@ -81,6 +85,7 @@ pokemonInput.addEventListener("click", () => {
 animationButton.addEventListener("click", () => {
   pokemonInput.classList.remove("testClass");
   resultsDiv.classList.add("hideResults");
+  loginbar.style.display = "none";
   card.style.display = "none";
 });
 
@@ -133,3 +138,7 @@ const fetchData = (url) => {
     })
     .catch((error) => console.error(error));
 };
+heart.addEventListener("click", () => {
+  heart.classList.toggle("fa-heart-o");
+  heart.classList.toggle("fa-heart");
+})
