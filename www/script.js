@@ -14,8 +14,8 @@ const pokeTypes = document.querySelector(".types");
 const pokeHeight = document.querySelector(".height");
 const pokeWeight = document.querySelector(".weight");
 const pokeAbilities = document.querySelector(".abilities");
-const pokeType1 = document.querySelector(".type1")
-const pokeType2 = document.querySelector(".type2")
+const pokeType1 = document.querySelector(".type1");
+const pokeType2 = document.querySelector(".type2");
 //pokemon types colors
 const typeColors = {
   grass: (a = 1) => `rgba(120, 197, 128,${a})`,
@@ -38,7 +38,7 @@ const typeColors = {
 
 input.addEventListener("keyup", (event) => {
   resultsDiv.classList.add("pokemonResults");
-  fetch("/data?q=" + input.value)
+  fetch("/data/pokemon/" + input.value)
     .then((response) => {
       if (!response.ok) throw new Error(response.status);
       return response.json();
@@ -57,13 +57,13 @@ input.addEventListener("keyup", (event) => {
           input.value = searchResult.textContent;
           resultsDiv.classList.remove("pokemonResults");
           resultsDiv.innerHTML = "";
-          fetchData(poke.url)
-          card.style.display = "inline-block"
+          fetchData(poke.url);
+          card.style.display = "inline-block";
         });
-      })
+      });
       if (!input.value.length) {
         resultsDiv.innerHTML = "";
-        card.style.display = "none"
+        card.style.display = "none";
       }
     })
     .catch((error) => console.error(error));
@@ -72,16 +72,16 @@ input.addEventListener("keyup", (event) => {
 //animations for the search button
 pokemonInput.addEventListener("click", () => {
   pokemonInput.classList.add("testClass");
-  resultsDiv.classList.remove("hideResults")
-  card.style.display = "none"
-  pokeType1.innerHTML = " "
-  pokeType2.innerHTML = " "
+  resultsDiv.classList.remove("hideResults");
+  card.style.display = "none";
+  pokeType1.innerHTML = " ";
+  pokeType2.innerHTML = " ";
 });
 
 animationButton.addEventListener("click", () => {
   pokemonInput.classList.remove("testClass");
-  resultsDiv.classList.add("hideResults")
-  card.style.display = "none"
+  resultsDiv.classList.add("hideResults");
+  card.style.display = "none";
 });
 
 //pokemon-data => ["pokemon","data"] => "pokemon data" => "Pokemon Data"
@@ -90,39 +90,46 @@ const formatString = (string) => {
   string.split("-").forEach((word, index) => {
     strArray[index] = word[0].toUpperCase() + word.slice(1);
   });
-  return strArray.join(' ');
-}
+  return strArray.join(" ");
+};
 
 const fetchData = (url) => {
-  fetch(url).then((response) => {
-    if (!response.ok) throw new Error(response.status);
-    return response.json();
-  }).then(pokeData => {
-    img.src = pokeData.sprites.front_default;
-    pokeName.textContent = formatString(pokeData.name);
-    pokeHeight.textContent = "Height: " + pokeData.height / 10.0 + "m";
-    pokeWeight.textContent = "Weight: " + pokeData.weight / 10.0 + "kg"
-
-    if (pokeData.abilities.length != 0) {
-      pokeAbilities.textContent = "Abilities: " + formatString(pokeData.abilities[0].ability.name);
-      if (pokeData.abilities.length == 2) {
-        pokeAbilities.textContent += "/" + formatString(pokeData.abilities[1].ability.name)
-      }
-    }
-
-    console.log(formatString(pokeData.types[0].type.name))
-    pokeType1.textContent = formatString(pokeData.types[0].type.name)
-    pokeType1.style.backgroundColor = typeColors[pokeData.types[0].type.name](0.5);
-    pokeType1.style.borderColor = typeColors[pokeData.types[0].type.name]();
-    if (pokeData.types.length > 1) {
-      pokeType2.textContent = " " + formatString(pokeData.types[1].type.name)
-      pokeType2.style.backgroundColor = typeColors[pokeData.types[1].type.name](0.5);
-      pokeType2.style.borderColor = typeColors[pokeData.types[1].type.name]();
-      pokeType2.style.display = "inline-block";
-    } else pokeType2.style.display = "none";
-
-    allTd.forEach((element, index) => {
-      element.textContent = pokeData.stats[index].base_stat;
+  fetch(url)
+    .then((response) => {
+      if (!response.ok) throw new Error(response.status);
+      return response.json();
     })
-  }).catch((error) => console.error(error));
-}
+    .then((pokeData) => {
+      img.src = pokeData.sprites.front_default;
+      pokeName.textContent = formatString(pokeData.name);
+      pokeHeight.textContent = "Height: " + pokeData.height / 10.0 + "m";
+      pokeWeight.textContent = "Weight: " + pokeData.weight / 10.0 + "kg";
+
+      if (pokeData.abilities.length != 0) {
+        pokeAbilities.textContent =
+          "Abilities: " + formatString(pokeData.abilities[0].ability.name);
+        if (pokeData.abilities.length == 2) {
+          pokeAbilities.textContent +=
+            "/" + formatString(pokeData.abilities[1].ability.name);
+        }
+      }
+
+      console.log(formatString(pokeData.types[0].type.name));
+      pokeType1.textContent = formatString(pokeData.types[0].type.name);
+      pokeType1.style.backgroundColor =
+        typeColors[pokeData.types[0].type.name](0.5);
+      pokeType1.style.borderColor = typeColors[pokeData.types[0].type.name]();
+      if (pokeData.types.length > 1) {
+        pokeType2.textContent = " " + formatString(pokeData.types[1].type.name);
+        pokeType2.style.backgroundColor =
+          typeColors[pokeData.types[1].type.name](0.5);
+        pokeType2.style.borderColor = typeColors[pokeData.types[1].type.name]();
+        pokeType2.style.display = "inline-block";
+      } else pokeType2.style.display = "none";
+
+      allTd.forEach((element, index) => {
+        element.textContent = pokeData.stats[index].base_stat;
+      });
+    })
+    .catch((error) => console.error(error));
+};
