@@ -10,6 +10,7 @@ const resultsDiv = document.querySelector(".pokemonResults");
 const loginbar = document.querySelector(".loginbar");
 const pokemonInput = document.querySelector(".pokemonSearch");
 const animationButton = document.querySelector("#search");
+const imgHolder = document.querySelector(".img-holder");
 //pokemon info div
 const card = document.querySelector(".card");
 const img = document.querySelector(".pokemonImg");
@@ -84,6 +85,7 @@ pokemonInput.addEventListener("click", () => {
     resultsDiv.classList.remove("hideResults");
     loginbar.style.display = "flex";
     card.style.display = "none";
+    imgholder.style.display = "grid";
   }, 1000);
   pokeType1.innerHTML = " ";
   pokeType2.innerHTML = " ";
@@ -94,6 +96,7 @@ animationButton.addEventListener("click", () => {
   resultsDiv.classList.add("hideResults");
   loginbar.style.display = "none";
   card.style.display = "none";
+  imgholder.style.display = "none";
 });
 
 //pokemon-data => ["pokemon","data"] => "pokemon data" => "Pokemon Data"

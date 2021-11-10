@@ -294,5 +294,48 @@ td {
   transform: translate(-50%, -50%);
   background: white;
 }
+.img-holder{
+  position: absolute;
+  margin-right: 150px;
+  margin-top: 650px;
+  display: none;
+  grid-template-areas: 
+  'myArea1  myArea2 myArea3'
+  'myArea1  myArea2 myArea3'
+  'myArea4  myArea5 myArea6'
+  'myArea4  myArea5 myArea6';
+  width: 350px;
+  height: 250px;
+}
+.img1{
+  width: 100px;
+  height: 100px;
+  grid-area: myArea1;
+}
+.img2{
+  width: 100px;
+  height: 100px;
+  grid-area: myArea2;
+}
+.img3{
+  width: 100px;
+  height: 100px;
+  grid-area: myArea3;
+}
+.img4{
+  width: 100px;
+  height: 100px;
+  grid-area: myArea4;
+}
+.img5{
+  width: 100px;
+  height: 100px;
+  grid-area: myArea5;
+}
+.img6{
+  width: 100px;
+  height: 100px;
+  grid-area: myArea6;
+}
 
 

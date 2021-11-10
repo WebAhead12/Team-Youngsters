@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const SECRET = "nkA$SD82&&282hd";
-function getUser(req, res, next) {
+function verifyUser(req, res, next) {
   const token = req.cookies.user;
   console.log(req.cookies);
   if (token) {
@@ -9,4 +9,4 @@ function getUser(req, res, next) {
   }
   next();
 }
-module.exports = { getUser, SECRET };
+module.exports = { verifyUser, SECRET };
