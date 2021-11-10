@@ -1,11 +1,13 @@
+//login
+const login = document.querySelector(".login");
 //favorite
-const heart = document.getElementById("heart")
+const heart = document.getElementById("heart");
 //pokemon search div
 const input = document.querySelector(".pokemonSearch");
 const results = document.querySelector(".pokemonResults");
 const resultsDiv = document.querySelector(".pokemonResults");
 //search bar animations
-const loginbar = document.querySelector(".loginbar")
+const loginbar = document.querySelector(".loginbar");
 const pokemonInput = document.querySelector(".pokemonSearch");
 const animationButton = document.querySelector("#search");
 //pokemon info div
@@ -19,6 +21,9 @@ const pokeWeight = document.querySelector(".weight");
 const pokeAbilities = document.querySelector(".abilities");
 const pokeType1 = document.querySelector(".type1");
 const pokeType2 = document.querySelector(".type2");
+
+checkLogIn();
+
 //pokemon types colors
 const typeColors = {
   grass: (a = 1) => `rgba(120, 197, 128,${a})`,
@@ -36,7 +41,7 @@ const typeColors = {
   ghost: (a = 1) => `rgba(112, 88, 152,${a})`,
   ice: (a = 1) => `rgba(152, 216, 216,${a})`,
   dragon: (a = 1) => `rgba(112, 56, 248,${a})`,
-  flying: (a = 1) => `rgba(255, 255, 255,${a})`,
+  flying: (a = 1) => `rgba(224, 224, 224,${a})`,
 };
 
 input.addEventListener("keyup", (event) => {
@@ -76,7 +81,7 @@ input.addEventListener("keyup", (event) => {
 pokemonInput.addEventListener("click", () => {
   pokemonInput.classList.add("testClass");
   resultsDiv.classList.remove("hideResults");
-  loginbar.style.display = "flex"
+  loginbar.style.display = "flex";
   card.style.display = "none";
   pokeType1.innerHTML = " ";
   pokeType2.innerHTML = " ";
@@ -111,23 +116,19 @@ const fetchData = (url) => {
       pokeWeight.textContent = "Weight: " + pokeData.weight / 10.0 + "kg";
 
       if (pokeData.abilities.length != 0) {
-        pokeAbilities.textContent =
-          "Abilities: " + formatString(pokeData.abilities[0].ability.name);
+        pokeAbilities.textContent = "Abilities: " + formatString(pokeData.abilities[0].ability.name);
         if (pokeData.abilities.length == 2) {
-          pokeAbilities.textContent +=
-            "/" + formatString(pokeData.abilities[1].ability.name);
+          pokeAbilities.textContent += "/" + formatString(pokeData.abilities[1].ability.name);
         }
       }
 
       console.log(formatString(pokeData.types[0].type.name));
       pokeType1.textContent = formatString(pokeData.types[0].type.name);
-      pokeType1.style.backgroundColor =
-        typeColors[pokeData.types[0].type.name](0.5);
+      pokeType1.style.backgroundColor = typeColors[pokeData.types[0].type.name](0.5);
       pokeType1.style.borderColor = typeColors[pokeData.types[0].type.name]();
       if (pokeData.types.length > 1) {
         pokeType2.textContent = " " + formatString(pokeData.types[1].type.name);
-        pokeType2.style.backgroundColor =
-          typeColors[pokeData.types[1].type.name](0.5);
+        pokeType2.style.backgroundColor = typeColors[pokeData.types[1].type.name](0.5);
         pokeType2.style.borderColor = typeColors[pokeData.types[1].type.name]();
         pokeType2.style.display = "inline-block";
       } else pokeType2.style.display = "none";
@@ -141,4 +142,23 @@ const fetchData = (url) => {
 heart.addEventListener("click", () => {
   heart.classList.toggle("fa-heart-o");
   heart.classList.toggle("fa-heart");
-})
+});
+
+//checks if a user is logged in or not
+function checkLogIn() {
+  fetch("/check-login")
+    .then((response) => {
+      return response.json();
+    })
+    .then((response) => {
+      if (response.exists) {
+        console.log(1);
+        login.textContent = "Log-out";
+        login.href = "/log-out";
+      } else {
+        console.log(0);
+        login.textContent = "log-in";
+        login.href = "/log-in";
+      }
+    });
+}
