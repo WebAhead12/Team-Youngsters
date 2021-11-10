@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const getUser = require("./middleware/getUser.js");
 const cookieparser = require("cookie-parser");
 const dataHandler = require("./handlers/data.js");
+const pokemonArray = [];
+const users = [];
 
 const SECRET = getUser.SECRET;
 const PORT = process.env.PORT || 3000;
@@ -43,7 +45,6 @@ server.get("/log-out", (req, res) => {
 });
 
 server.get("/check-login", (req, res) => {
-  console.log(req.user);
   res.send({ exists: !!req.user });
 });
 

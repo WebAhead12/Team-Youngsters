@@ -1,6 +1,7 @@
 const login = document.querySelector("#log-in");
 //favorite
 const heart = document.getElementById("heart");
+const heartTimes = 0;
 //pokemon search div
 const input = document.querySelector(".pokemonSearch");
 const results = document.querySelector(".pokemonResults");
@@ -140,9 +141,31 @@ const fetchData = (url) => {
     })
     .catch((error) => console.error(error));
 };
+
 heart.addEventListener("click", () => {
-  heart.classList.toggle("fa-heart-o");
-  heart.classList.toggle("fa-heart");
+  if (checkLogIn()) {
+    if (heartTimes < 7) {
+      heart.classList.toggle("fa-heart-o");
+      heart.classList.toggle("fa-heart");
+      if (heart.classList.includes("fa-heart")) {
+        heartTimes++;
+        fetch("/pokemon/favorite", {
+          method: "POST",
+          body: JSON.stringify({ pokemon: pokeName, check: 1 }),
+          headers: { "content-type": "application/json" },
+        });
+      } else if (heart.classList.includes("fa-heart-o")) {
+        heartTimes--;
+        fetch("/pokemon/favorite", {
+          method: "POST",
+          body: JSON.stringify({ pokemon: pokeName, check: 0 }),
+          headers: { "content-type": "application/json" },
+        });
+      }
+    } else {
+    }
+  } else {
+  }
 });
 
 //checks if a user is logged in or not
@@ -153,13 +176,13 @@ function checkLogIn() {
     })
     .then((response) => {
       if (response.exists) {
-        console.log(1);
         login.textContent = "Log-out";
         login.href = "/log-out";
+        return true;
       } else {
-        console.log(0);
         login.textContent = "log-in";
         login.href = "/log-in";
+        return false;
       }
     });
 }
