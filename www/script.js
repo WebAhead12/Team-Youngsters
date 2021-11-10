@@ -79,17 +79,17 @@ input.addEventListener("keyup", (event) => {
 
 //animations for the search button
 pokemonInput.addEventListener("click", () => {
-  console.log(2);
   pokemonInput.classList.add("testClass");
-  resultsDiv.classList.remove("hideResults");
-  loginbar.style.display = "flex";
-  card.style.display = "none";
+  setTimeout(() => {
+    resultsDiv.classList.remove("hideResults");
+    loginbar.style.display = "flex";
+    card.style.display = "none";
+  }, 1000);
   pokeType1.innerHTML = " ";
   pokeType2.innerHTML = " ";
 });
 
 animationButton.addEventListener("click", () => {
-  console.log(1);
   pokemonInput.classList.remove("testClass");
   resultsDiv.classList.add("hideResults");
   loginbar.style.display = "none";
