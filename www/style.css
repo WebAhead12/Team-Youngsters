@@ -16,7 +16,7 @@ body {
   background: #f2f2f2;
 }
 .container {
-  /* position: absolute; */
+  position: relative;
   margin: auto;
   top: 0px;
   left: 0;
@@ -30,7 +30,7 @@ body {
   background-size: contain;
   position: absolute;
   margin: auto;
-  top: 0;
+  top: 750px;
   right: 0;
   left: 0;
   bottom: 0;
@@ -62,7 +62,7 @@ body {
   content: "";
   position: absolute;
   margin: auto;
-  top: 0px;
+  top: 0;
   right: 0;
   bottom: 0;
   left: -5px;
@@ -76,7 +76,7 @@ body {
   font-family: "Poppins", sans-serif;
   position: absolute;
   margin: auto;
-  top: 0;
+  top: 750px;
   right: 0;
   bottom: 0;
   left: 0;
@@ -100,12 +100,12 @@ body {
 }
 .container .testClass {
   width: 300px;
-  top: -550px;
+  top: 100px;
   opacity: 1;
   cursor: text;
 }
 .container .testClass ~ .search {
-  top: -550px;
+  top: 100px;
   right: -250px;
   z-index: 6;
 }
@@ -135,9 +135,11 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  top: 120px;
   margin-top: 15%;
-  margin-left: 39%;
-  width: 20%;
+  margin-left: 10%;
+  width: 200px;
   height: auto;
   border-radius: 2%;
   box-shadow: 5px 5px lightgray;
@@ -294,70 +296,3 @@ td {
 }
 
 
-@media only screen and (min-width: 1400px) {
-  .container {
-    margin-bottom: 50px;
-  }
-  .pokemonResults {
-    margin-top: 15%;
-  }
-  .card__container {
-    margin: 50px auto;
-  }
-  .card {
-    margin: 50px auto;
-  }
-}
-@media only screen and (min-width: 1000px) and (max-width: 1400px) {
-  .pokemonResults {
-    margin-top: 3%;
-  }
-  .card__container {
-    margin: 25px auto;
-  }
-  .container .testClass {
-    top: -500px;
-  }
-  .container .testClass ~ .search {
-    top: -500px;
-    right: -230px;
-  }
-}
-
-@media only screen and (min-width: 450px) and (max-width: 1000px) {
-  .pokemonResults {
-    margin-top: 27%;
-  }
-  .card {
-    width: 350px;
-  }
-  .card__container {
-    margin: 200px auto;
-  }
-  .container .testClass {
-    top: -600px;
-  }
-  .container .testClass ~ .search {
-    top: -600px;
-    right: -230px;
-  }
-}
-
-@media only screen and (max-width: 450px) {
-  .pokemonResults {
-    margin-top: 27%;
-  }
-  .card {
-    width: 300px;
-  }
-  .card__container {
-    margin: 100px auto;
-  }
-  .container .testClass {
-    top: -500px;
-  }
-  .container .testClass ~ .search {
-    top: -500px;
-    right: -230px;
-  }
-}
