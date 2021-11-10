@@ -1,5 +1,4 @@
-//login
-const login = document.querySelector(".login");
+const login = document.querySelector("#log-in");
 //favorite
 const heart = document.getElementById("heart");
 //pokemon search div
@@ -89,7 +88,7 @@ pokemonInput.addEventListener("click", () => {
 });
 
 animationButton.addEventListener("click", () => {
-  console.log(1)
+  console.log(1);
   pokemonInput.classList.remove("testClass");
   resultsDiv.classList.add("hideResults");
   loginbar.style.display = "none";
