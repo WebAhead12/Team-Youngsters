@@ -79,6 +79,7 @@ input.addEventListener("keyup", (event) => {
 
 //animations for the search button
 pokemonInput.addEventListener("click", () => {
+  console.log(2);
   pokemonInput.classList.add("testClass");
   resultsDiv.classList.remove("hideResults");
   loginbar.style.display = "flex";
@@ -88,6 +89,7 @@ pokemonInput.addEventListener("click", () => {
 });
 
 animationButton.addEventListener("click", () => {
+  console.log(1)
   pokemonInput.classList.remove("testClass");
   resultsDiv.classList.add("hideResults");
   loginbar.style.display = "none";
