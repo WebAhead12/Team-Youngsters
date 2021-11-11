@@ -69,7 +69,7 @@ server.use(express.static(path.join(__dirname, "www")));
 
 //functions
 function findUser(user) {
-  if (req.user) {
+  if (user) {
     return users.find((element) => element["user"].toLowerCase() === user.toLowerCase());
   }
 }
