@@ -1,7 +1,7 @@
 const login = document.querySelector("#log-in");
+const pokemonUsers = Array.from(document.querySelectorAll(".userpokemon"));
 //favorite
 const heart = document.getElementById("heart");
-const heartTimes = 0;
 //pokemon search div
 const input = document.querySelector(".pokemonSearch");
 const results = document.querySelector(".pokemonResults");
@@ -10,7 +10,7 @@ const resultsDiv = document.querySelector(".pokemonResults");
 const loginbar = document.querySelector(".loginbar");
 const pokemonInput = document.querySelector(".pokemonSearch");
 const animationButton = document.querySelector("#search");
-const imgHolder = document.querySelector(".img-holder");
+const imgholder = document.querySelector(".img-holder");
 //pokemon info div
 const card = document.querySelector(".card");
 const img = document.querySelector(".pokemonImg");
@@ -22,6 +22,10 @@ const pokeWeight = document.querySelector(".weight");
 const pokeAbilities = document.querySelector(".abilities");
 const pokeType1 = document.querySelector(".type1");
 const pokeType2 = document.querySelector(".type2");
+// non constant variables
+let imageUrl = "";
+let heartStatus = "heart-off";
+let heartTimes = 0;
 
 checkLogIn();
 
@@ -66,6 +70,8 @@ input.addEventListener("keyup", (event) => {
           input.value = searchResult.textContent;
           resultsDiv.classList.remove("pokemonResults");
           resultsDiv.innerHTML = "";
+          console.log(10);
+          checkLogIn("", checkUsersFavoritePokemons);
           fetchData(poke.url);
           card.style.display = "inline-block";
         });
@@ -83,6 +89,9 @@ pokemonInput.addEventListener("click", () => {
   pokemonInput.classList.add("testClass");
   setTimeout(() => {
     resultsDiv.classList.remove("hideResults");
+    heart.classList.add("fa-heart-o");
+    heart.classList.remove("fa-heart");
+    heartStatus = "heart-off";
     loginbar.style.display = "flex";
     card.style.display = "none";
     imgholder.style.display = "grid";
@@ -115,7 +124,8 @@ const fetchData = (url) => {
       return response.json();
     })
     .then((pokeData) => {
-      img.src = pokeData.sprites.front_default;
+      imageUrl = pokeData.sprites.front_default;
+      img.src = imageUrl;
       pokeName.textContent = formatString(pokeData.name);
       pokeHeight.textContent = "Height: " + pokeData.height / 10.0 + "m";
       pokeWeight.textContent = "Weight: " + pokeData.weight / 10.0 + "kg";
@@ -144,35 +154,52 @@ const fetchData = (url) => {
     })
     .catch((error) => console.error(error));
 };
+function favorite() {
+  heartOn();
+  if (heartTimes < 6) {
+    if (heartStatus == "heart-on") {
+      heartTimes++;
+      fetch("/pokemon/favorite", {
+        method: "POST",
+        body: JSON.stringify({ pokemon: pokeName.textContent, src: imageUrl, check: 1 }),
+        headers: { "content-type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((response) => insertUsersPokemons(response));
+    } else if (heartStatus == "heart-off") {
+      heartTimes--;
+      fetch("/pokemon/favorite", {
+        method: "POST",
+        body: JSON.stringify({ pokemon: pokeName.textContent, check: 0 }),
+        headers: { "content-type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          console.log(response);
+          insertUsersPokemons(response);
+        });
+    }
+  } else if (heartTimes > 5) {
+    heart.classList.add("fa-heart-o");
+    heart.classList.remove("fa-heart");
+    alert("⚠️ You can't have more than 6 favorite pokemons");
+  }
+}
 
 heart.addEventListener("click", () => {
-  if (checkLogIn()) {
-    if (heartTimes < 7) {
-      heart.classList.toggle("fa-heart-o");
-      heart.classList.toggle("fa-heart");
-      if (heart.classList.includes("fa-heart")) {
-        heartTimes++;
-        fetch("/pokemon/favorite", {
-          method: "POST",
-          body: JSON.stringify({ pokemon: pokeName, check: 1 }),
-          headers: { "content-type": "application/json" },
-        });
-      } else if (heart.classList.includes("fa-heart-o")) {
-        heartTimes--;
-        fetch("/pokemon/favorite", {
-          method: "POST",
-          body: JSON.stringify({ pokemon: pokeName, check: 0 }),
-          headers: { "content-type": "application/json" },
-        });
-      }
-    } else {
-    }
-  } else {
+  heart.classList.toggle("fa-heart-o");
+  heart.classList.toggle("fa-heart");
+  if (heartStatus == "heart-on") {
+    heartStatus = "heart-off";
+    checkLogIn(favorite);
+    return heartStatus;
   }
+  heartStatus = "heart-on";
+  checkLogIn(favorite);
 });
 
 //checks if a user is logged in or not
-function checkLogIn() {
+function checkLogIn(cb, cb2) {
   fetch("/check-login")
     .then((response) => {
       return response.json();
@@ -181,11 +208,64 @@ function checkLogIn() {
       if (response.exists) {
         login.textContent = "Log-out";
         login.href = "/log-out";
-        return true;
+        heartTimes = response.data.length || 0;
+        insertUsersPokemons(response.data);
+        if (cb2) {
+          console.log(5);
+          cb2(response.data);
+        }
+        if (cb) {
+          cb();
+        }
       } else {
         login.textContent = "log-in";
         login.href = "/log-in";
-        return false;
+        pokemonUsers.forEach((element) => (element.src = "photo.jpg"));
+        if (cb2) {
+          heart.classList.add("fa-heart-o");
+          heart.classList.remove("fa-heart");
+        }
+        if (cb) {
+          heart.classList.add("fa-heart-o");
+          heart.classList.remove("fa-heart");
+          alert("⚠️ You need to log in to use this feature");
+        }
       }
+    })
+    .catch((err) => {
+      console.error(err);
     });
+}
+
+function getPokemonUrl(array) {
+  return array.map((element) => element.image);
+}
+
+function insertUsersPokemons(array) {
+  let pokemonsImages = getPokemonUrl(array);
+  pokemonUsers.forEach((element) => (element.src = "photo.jpg"));
+  for (let i = 0; i < array.length; i++) {
+    pokemonUsers[i].src = pokemonsImages[i];
+  }
+}
+//checks if the searched pokemon is in the users favorite pokemons
+function checkUsersFavoritePokemons(array) {
+  let favoriteCheck = array.find((element) => element["name"].toLowerCase() === pokemonInput.value.toLowerCase());
+  console.log(pokemonInput.value);
+  if (favoriteCheck) {
+    console.log(1);
+    heart.classList.add("fa-heart");
+    heart.classList.remove("fa-heart-o");
+  } else {
+    heart.classList.remove("fa-heart");
+    heart.classList.add("fa-heart-o");
+  }
+}
+
+function heartOn() {
+  if (heart.classList.contains("fa-heart")) {
+    heartStatus = "heart-on";
+  } else {
+    heartStatus = "heart-off";
+  }
 }

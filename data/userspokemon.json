@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "user": "julio.elias22@gmail.com",
+    "pokemons": [
+      {
+        "name": "Squirtle",
+        "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"
+      }
+    ]
+  }
+]
