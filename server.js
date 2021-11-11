@@ -33,9 +33,9 @@ server.get("/data/pokemon/:name", dataHandler);
 
 server.post("/log-in", (req, res) => {
   const email = req.body.email;
-  pokemonArray = checkUser(email) || [];
   const token = jwt.sign(email, SECRET);
   res.cookie("user", token);
+  pokemonArray = checkUser(email) || [];
   res.redirect("/");
 });
 
@@ -70,11 +70,18 @@ server.use(express.static(path.join(__dirname, "www")));
 //functions
 function findUser(user) {
   if (user) {
-    return users.find((element) => element["user"].toLowerCase() === user.toLowerCase());
+    return users.find(
+      (element) =>
+        // console.log(element["user"].toLowerCase());
+        // console.log(element["user"]);
+        // console.log(user);
+        element["user"].toLowerCase() === user.toLowerCase()
+    );
   }
 }
 
 function checkUser(name) {
+  console.log(name);
   if (findUser(name)) {
     return findUser(name)["pokemons"];
   } else {
