@@ -13,9 +13,7 @@ function dataHandler(request, response) {
       let pokemons = [];
       let res = JSON.parse(file);
 
-      pokemons = res.results
-        .filter((element) => element.name.indexOf(data.toLowerCase()) == 0)
-        .slice(0, 10);
+      pokemons = res.results.filter((element) => element.name.indexOf(data.toLowerCase()) == 0).slice(0, 10);
 
       response.writeHead(200, { "content-type": "application/json" });
       response.end(JSON.stringify(pokemons));

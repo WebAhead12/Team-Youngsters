@@ -208,10 +208,12 @@ function checkLogIn(cb, cb2) {
       if (response.exists) {
         login.textContent = "Log-out";
         login.href = "/log-out";
-        heartTimes = response.data.length || 0;
+        if (response.data !== []) {
+          heartTimes = response.data.length;
+        }
+
         insertUsersPokemons(response.data);
         if (cb2) {
-          console.log(5);
           cb2(response.data);
         }
         if (cb) {

@@ -5,11 +5,39 @@
       {
         "name": "Squirtle",
         "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"
+      },
+      {
+        "name": "Charmander",
+        "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
+      },
+      {
+        "name": "Charmeleon",
+        "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png"
+      },
+      {
+        "name": "Charizard",
+        "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
+      },
+      {
+        "name": "Chansey",
+        "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/113.png"
+      },
+      {
+        "name": "Chatot",
+        "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/441.png"
       }
     ]
   },
   {
     "user": "mario.saliba98@gmail.com",
+    "pokemons": []
+  },
+  {
+    "user": "julio.elias22@hotmail.com",
+    "pokemons": []
+  },
+  {
+    "user": "theman@gmail.com",
     "pokemons": []
   }
 ]
